@@ -44,7 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initParticles() {
-        const count = Math.min(Math.floor((canvas.width * canvas.height) / 12000), 120);
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            particles = [];
+            return;
+        }
+        
+        let density = window.innerWidth < 768 ? 20000 : 12000;
+        const count = Math.min(Math.floor((canvas.width * canvas.height) / density), window.innerWidth < 768 ? 60 : 120);
         particles = [];
         for (let i = 0; i < count; i++) {
             particles.push(new Particle());
@@ -72,11 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        connectParticles();
+        if (particles.length > 0) {
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            connectParticles();
+        }
         requestAnimationFrame(animateParticles);
     }
     animateParticles();
