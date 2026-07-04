@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const experienceEntries = await getCollection('experience');
+const sortedExperience = experienceEntries.sort((a, b) => a.data.order - b.data.order);
+---
+<section class="section" id="experience">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">// 03</span>
+            <h2 class="section-title">Experience</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="timeline">
+            {
+                sortedExperience.map(async (entry, index) => {
+                    const { role, company, period } = entry.data;
+                    const { Content } = await render(entry);
+                    const aosDir = index % 2 === 0 ? "fade-right" : "fade-left";
+
+                    return (
+                        <div class="timeline-item" data-aos={aosDir}>
+                            <div class="timeline-marker">
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-content">
+                                {index === 0 && <div class="timeline-badge current">Hiện tại</div>}
+                                <h3 class="timeline-title">{role}</h3>
+                                <div class="timeline-company">{company}</div>
+                                <div class="timeline-period">{period}</div>
+                                <div class="timeline-details-wrapper">
+                                    <Content />
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const projectEntries = await getCollection('projects');
+const sortedProjects = projectEntries.sort((a, b) => a.data.order - b.data.order);
+---
+<section class="section section-alt" id="projects">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">// 04</span>
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="projects-grid">
+            {
+                sortedProjects.map(async (entry, index) => {
+                    const { title, status, metrics, techStack } = entry.data;
+                    const { Content } = await render(entry);
+                    const delay = index * 100;
+                    
+                    const statusClass = status === 'Operational' ? 'status-green' : (status === 'Completed' ? 'status-blue' : 'status-yellow');
+
+                    return (
+                        <div class="project-card" data-aos="zoom-in" data-aos-delay={delay}>
+                            <div class="project-card-header">
+                                <div class="project-status">
+                                    <span class={`status-dot ${statusClass}`}></span>
+                                    <span>{status}</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="#" class="project-link" title="GitHub">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <h3 class="project-title">{title}</h3>
+                            <div class="project-description">
+                                <Content />
+                            </div>
+                            <div class="project-metrics">
+                                {metrics.map(metric => {
+                                    const parts = metric.split(': ');
+                                    return (
+                                        <div class="metric">
+                                            <span class="metric-value">{parts[1] || metric}</span>
+                                            <span class="metric-label">{parts[0] || ""}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div class="project-tech">
+                                {techStack.map(tech => <span>{tech}</span>)}
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+</section>

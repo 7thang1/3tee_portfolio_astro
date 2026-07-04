@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+
+const certEntries = await getCollection('certifications');
+const sortedCerts = certEntries.sort((a, b) => a.data.order - b.data.order);
+---
+<section class="section" id="certifications">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">// 05</span>
+            <h2 class="section-title">Certifications</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="certs-grid">
+            {
+                sortedCerts.map((entry, index) => {
+                    const { name, issuer, type, icon } = entry.data;
+                    const delay = index * 100;
+                    
+                    return (
+                        <div class="cert-card" data-aos="flip-left" data-aos-delay={delay}>
+                            <div class={`cert-icon ${icon}`}>
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="cert-name">{name}</h3>
+                            <span class="cert-issuer">{issuer}</span>
+                            <span class="cert-date">{type}</span>
+                            <div class="cert-badge-glow"></div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+</section>
