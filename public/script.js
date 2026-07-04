@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             particles = [];
             return;
         }
-        
+
         let density = window.innerWidth < 768 ? 20000 : 12000;
         const count = Math.min(Math.floor((canvas.width * canvas.height) / density), window.innerWidth < 768 ? 60 : 120);
         particles = [];
@@ -145,40 +145,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== Terminal Typing Effect ==========
     const commands = [
-        { cmd: 'cat /etc/profile/just3tee', output: [
-            '<span style="color:#00e676">╔══════════════════════════════════════╗</span>',
-            '<span style="color:#00e676">║</span>  <span style="color:#00e5ff;font-weight:bold">Thi Tan Thinh (3tee)</span>              <span style="color:#00e676">║</span>',
-            '<span style="color:#00e676">║</span>  System Admin @ Sacombank           <span style="color:#00e676">║</span>',
-            '<span style="color:#00e676">║</span>  Ho Chi Minh City, Vietnam          <span style="color:#00e676">║</span>',
-            '<span style="color:#00e676">╚══════════════════════════════════════╝</span>',
-            '',
-            '<span style="color:#b388ff">Platform:</span>  Red Hat OpenShift (OCP)',
-            '<span style="color:#b388ff">Certs:</span>     <span style="color:#00e676">3x Red Hat Certified</span>',
-            '<span style="color:#b388ff">Stack:</span>     RHEL · IBM MQ · Redis · Prometheus',
-            '<span style="color:#b388ff">Status:</span>    <span style="color:#00e676">● OPERATIONAL</span>',
-        ]},
-        { cmd: 'oc get nodes -o wide', output: [
-            '<span style="color:#5a6478">NAME              STATUS   ROLES          AGE    VERSION</span>',
-            'ocp-master-01     <span style="color:#00e676">Ready</span>    control-plane  200d   v4.15.3',
-            'ocp-master-02     <span style="color:#00e676">Ready</span>    control-plane  200d   v4.15.3',
-            'ocp-master-03     <span style="color:#00e676">Ready</span>    control-plane  200d   v4.15.3',
-            'ocp-worker-01     <span style="color:#00e676">Ready</span>    worker         200d   v4.15.3',
-            'ocp-worker-02     <span style="color:#00e676">Ready</span>    worker         200d   v4.15.3',
-            'ocp-infra-01      <span style="color:#00e676">Ready</span>    infra          200d   v4.15.3',
-            '',
-            '<span style="color:#00e676">All banking services operational ✓</span>',
-        ]},
-        { cmd: 'uptime && promtool check rules', output: [
-            '<span style="color:#b388ff">up 365 days, 23:59</span>, load average: 0.42, 0.38, 0.35',
-            '',
-            '<span style="color:#5a6478">Checking alert rules...</span>',
-            '  core-banking.rules    <span style="color:#00e676">✓ SUCCESS</span>  12 rules',
-            '  payment-gateway.rules <span style="color:#00e676">✓ SUCCESS</span>  8 rules',
-            '  ibm-mq.rules          <span style="color:#00e676">✓ SUCCESS</span>  5 rules',
-            '  redis-cluster.rules   <span style="color:#00e676">✓ SUCCESS</span>  6 rules',
-            '',
-            '<span style="color:#ffd740">Coffee level: ████████░░ 80%</span>  ☕',
-        ]},
+        {
+            cmd: 'cat /etc/profile/just3tee', output: [
+                '<span style="color:#00e676">╔══════════════════════════════════════╗</span>',
+                '<span style="color:#00e676">║</span>  <span style="color:#00e5ff;font-weight:bold">Thi Tan Thinh (3tee)</span>              <span style="color:#00e676">║</span>',
+                '<span style="color:#00e676">║</span>  System Admin @ Sacombank           <span style="color:#00e676">║</span>',
+                '<span style="color:#00e676">║</span>  Ho Chi Minh City, Vietnam          <span style="color:#00e676">║</span>',
+                '<span style="color:#00e676">╚══════════════════════════════════════╝</span>',
+                '',
+                '<span style="color:#b388ff">Platform:</span>  Red Hat OpenShift (OCP)',
+                '<span style="color:#b388ff">Certs:</span>     <span style="color:#00e676">4x Red Hat Certified</span>',
+                '<span style="color:#b388ff">Stack:</span>     RHEL · IBM MQ · Redis · Prometheus',
+                '<span style="color:#b388ff">Status:</span>    <span style="color:#00e676">● OPERATIONAL</span>',
+            ]
+        },
+        {
+            cmd: 'oc get nodes -o wide', output: [
+                '<span style="color:#5a6478">NAME              STATUS   ROLES          AGE    VERSION</span>',
+                'ocp-master-01     <span style="color:#00e676">Ready</span>    control-plane  200d   v4.15.3',
+                'ocp-master-02     <span style="color:#00e676">Ready</span>    control-plane  200d   v4.15.3',
+                'ocp-master-03     <span style="color:#00e676">Ready</span>    control-plane  200d   v4.15.3',
+                'ocp-worker-01     <span style="color:#00e676">Ready</span>    worker         200d   v4.15.3',
+                'ocp-worker-02     <span style="color:#00e676">Ready</span>    worker         200d   v4.15.3',
+                'ocp-infra-01      <span style="color:#00e676">Ready</span>    infra          200d   v4.15.3',
+                '',
+                '<span style="color:#00e676">All banking services operational ✓</span>',
+            ]
+        },
+        {
+            cmd: 'uptime && promtool check rules', output: [
+                '<span style="color:#b388ff">up 365 days, 23:59</span>, load average: 0.42, 0.38, 0.35',
+                '',
+                '<span style="color:#5a6478">Checking alert rules...</span>',
+                '  core-banking.rules    <span style="color:#00e676">✓ SUCCESS</span>  12 rules',
+                '  payment-gateway.rules <span style="color:#00e676">✓ SUCCESS</span>  8 rules',
+                '  ibm-mq.rules          <span style="color:#00e676">✓ SUCCESS</span>  5 rules',
+                '  redis-cluster.rules   <span style="color:#00e676">✓ SUCCESS</span>  6 rules',
+                '',
+                '<span style="color:#ffd740">Coffee level: ████████░░ 80%</span>  ☕',
+            ]
+        },
     ];
 
     let currentCmdIndex = 0;
